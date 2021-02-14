@@ -2,22 +2,35 @@ import React from 'react';
 import './Contact.css';
 import PropTypes from 'prop-types';
 
-function Contact(props) {
+class Contact extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOnline: false
+    };
+}
+render (){
     return (
       <div className="Contact">
         
       <img className="avatar"
-        src={props.avatar} alt={props.name} />
+        src={this.props.avatar} alt={this.props.name} />
       
     
       <div>
         <p className="name">
-        {props.name}
+        {this.props.name}
         </p>
-        <div className="status">
-            
-            <div className={props.online ? 'status-online' : 'status-offline'}> </div>
-            <p className="status-text">{props.online ? 'online' : 'offline'}</p>
+        <div className="status"
+                       
+             onClick={(event) => {
+              const newOnLine = !this.state.isOnline;
+              this.setState({ isOnline: newOnLine });
+            }}>
+            <span
+            className={this.state.isOnline ? 'status-online' : 'status-offline'}></span>
+             
+            <p className="status-text">{this.state.isOnline ? 'online' : 'offline'}</p>
         </div>
       </div>
     
@@ -25,6 +38,7 @@ function Contact(props) {
       </div>
     );
   }
+}
   
     Contact.propTypes = {
       online: PropTypes.bool,
